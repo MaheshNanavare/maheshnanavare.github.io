@@ -59,9 +59,7 @@ I have experience in **software development, project management, and teamwork**,
 
 Want to collaborate or have suggestions? Reach out at:
 
-- **Email:** [your-email@example.com](mailto:maheshnanavare2212@example.com)
-- **GitHub:** [https://github.com/your-github-username](https://github.com/maheshnanavare)
+- **Email:** [maheshnanavare2212@gmail.com](mailto:maheshnanavare2212@gmail.com)
+- **GitHub:** [https://github.com/maheshnanavare](https://github.com/maheshnanavare)
 
 ---
-
-### ⭐ Like this project? Give it a star ⭐
