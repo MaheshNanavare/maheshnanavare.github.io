@@ -1,52 +1,872 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mahesh Pralhad Nanavare | Portfolio</title>
 
-<!-- This is a comment for human! -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              bristol: {
+                DEFAULT: "#B01C2E",
+                light: "#d62238",
+                dark: "#8a1624",
+              },
+            },
+          },
+        },
+      };
+    </script>
 
-<html lang="en">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
 
-<head>
-  <!-- Change the name to yours! -->
-  <title>Mahesh Nanavare's Portal</title>
-  <!-- Link to the master cascading stylesheet -->
-  <link rel="stylesheet" href="css/master.css">
-  <link rel="FaviconIcon" href="favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="name" content="Mahesh Nanavare's Portal">
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-<body>
-  <!-- Add the banner image here -->
-  <img class="cover" src="images/banner.png" width="75%" alt="banner">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- Add the name for the website -->
-  <h1>Mahesh Nanavare's Portal</h1>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      details > summary {
+        list-style: none;
+      }
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      details[open] summary ~ * {
+        animation: sweep 0.3s ease-in-out;
+      }
+      @keyframes sweep {
+        0% {
+          opacity: 0;
+          margin-top: -10px;
+        }
+        100% {
+          opacity: 1;
+          margin-top: 0px;
+        }
+      }
+      .icon {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+    </style>
 
-  <!-- Add a section called "About Me" -->
-  <h2>About Me</h2>
+    <script>
+      const PORTFOLIO_CONFIG = {
+        links: {
+          github: "https://github.com/MaheshNanavare",
+          hackerrank: "https://www.hackerrank.com/profile/maheshnanavare",
+          handshake: "https://app.joinhandshake.co.uk/profiles/n2q4rx",
+          kaggle: "https://www.kaggle.com/maheshnanavare",
+          tourAssistant:
+            "https://drive.google.com/file/d/1A6mc9y6TDKGCXOONmyDOx13zApxtn0NH/view",
+          cms: "https://github.com/MaheshNanavare/cafe",
+          ecommerce: "https://github.com/MaheshNanavare/PyShop",
+          stag: "https://github.com/UoB-COMSM0166/2025-group-13", // Linked to Dino Escape/Group Project
+          chess: "https://github.com/MaheshNanavare", // General fallback
+          retailMl:
+            "https://www.kaggle.com/code/maheshnanavare/sales-forecast-using-ensemble-of-boosted-hybrids?scriptVersionId=117336497",
+          dashboards:
+            "https://github.com/MaheshNanavare/AdventureWorks_Report-PowerBI-",
+          automation: "https://your-eaton-project-link.com",
+          hardware: "https://your-bajaj-project-link.com",
+          bristolPlus: "https://www.bristol.ac.uk/careers/bristol-plus-award/",
+          athletics: "https://www.lboro.ac.uk/sport/", // Reference to Kho-Kho tournament location
+          community: "https://sparksbristol.co.uk/",
+        },
+        images: {
+          logo: "images/bristol-logo.jpg",
+          tourAssistant: "images/tour-assistant-image.jpg",
+          cms: "images/cms-image.jpg",
+          ecommerce: "images/ecommerce-image.jpg",
+          stag: "images/stag-image.png",
+          chess: "images/chess-image.jpg",
+          retailMl: "images/ml-image.png",
+          dashboards: "images/dashboard-image.jpg",
+          automation: "images/automation-image.png", /////
+          hardware: "images/hardware-image.png", /////
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-50 transition-colors duration-300"
+  >
+    <div
+      class="sticky top-0 z-50 shadow-lg bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b-4 border-bristol transition-colors duration-300"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-3 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <nav
+          class="flex flex-wrap justify-center md:justify-start gap-6 font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400"
+        >
+          <a
+            href="#profile"
+            class="nav-link inline-block py-1 hover:text-bristol transition-all duration-300 origin-left"
+            >Profile</a
+          >
+          <a
+            href="#projects"
+            class="nav-link inline-block py-1 hover:text-bristol transition-all duration-300 origin-left"
+            >Software Projects</a
+          >
+          <a
+            href="#interdisciplinary"
+            class="nav-link inline-block py-1 hover:text-bristol transition-all duration-300 origin-left"
+            >Interdisciplinary</a
+          >
+        </nav>
 
-  <!-- Add a few paragraph lines to describe you -->
-  <p>I am a Computer Science Master's student at the University of Bristol.</p>
-  <p>I have an M.Tech in Industrial Engineering and Management from NIT Trichy and a B.Tech in Mechanical Engineering from Walchand College of Engineering.</p>
-  <p>I have work experience at Eaton India Innovation Centre and Bajaj Auto Limited, optimizing processes and managing engineering projects.</p>
+        <div
+          class="flex flex-wrap justify-center items-center gap-5 text-slate-700 dark:text-slate-300"
+        >
+          <a
+            href="https://linkedin.com/in/mpnanavare"
+            target="_blank"
+            aria-label="LinkedIn"
+            class="hover:text-bristol transition-colors"
+          >
+            <svg class="icon" viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              />
+            </svg>
+          </a>
+          <a
+            id="link-github"
+            target="_blank"
+            aria-label="GitHub"
+            class="hover:text-bristol transition-colors"
+          >
+            <svg class="icon" viewBox="0 0 24 24">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+          </a>
+          <a
+            id="link-hackerrank"
+            target="_blank"
+            aria-label="HackerRank"
+            class="hover:opacity-80 transition-opacity flex items-center gap-1"
+          >
+            <img
+              src="images/hackerrank-icon.png"
+              alt="HackerRank"
+              class="w-5 h-auto"
+            />
+          </a>
 
-  <!-- Add a section called "Credentials and Portfolio" -->
-  <h2>Credentials and Portfolio</h2>
+          <a
+            id="link-handshake"
+            target="_blank"
+            aria-label="Handshake"
+            class="hover:opacity-80 transition-opacity flex items-center gap-1"
+          >
+            <img
+              src="images/handshake-icon.png"
+              alt="Handshake"
+              class="w-5 h-auto"
+            />
+          </a>
 
-  <!-- Add two hyperlinks to resume page and GitHub page separated by a vertical line -->
-  <p><a href="resume.html">My Resume</a> | <a href="https://github.com/MaheshNanavare" target="_blank">My GitHub</a></p>
+          <a
+            id="link-kaggle"
+            target="_blank"
+            aria-label="Kaggle"
+            class="hover:opacity-80 transition-opacity flex items-center gap-1"
+          >
+            <img src="images/kaggle-icon.png" alt="Kaggle" class="w-5 h-auto" />
+          </a>
+          <button
+            id="theme-toggle"
+            class="border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-bristol px-3 py-1.5 rounded transition-colors text-xs font-bold flex items-center gap-2"
+          >
+            <svg
+              class="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            Theme
+          </button>
+        </div>
+      </div>
+    </div>
+    <header
+      id="profile"
+      class="relative py-20 bg-bristol dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 text-white overflow-hidden scroll-mt-32"
+    >
+      <div class="max-w-6xl mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row gap-12 items-start justify-between"
+        >
+          <div class="flex-1 z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+              Mahesh Pralhad Nanavare
+            </h1>
+            <h2
+              class="text-xl md:text-2xl text-slate-200 font-bold mb-8 uppercase tracking-widest border-b border-white/20 inline-block pb-2"
+            >
+              Software Engineer | MSc Computer Science
+            </h2>
 
-  <h2>Contact</h2>
+            <div
+              class="space-y-4 text-lg text-slate-100 dark:text-slate-300 leading-relaxed max-w-3xl"
+            >
+              <p class="font-medium text-justify text-white">
+                Applying a rigorous, data-driven engineering background to
+                modern software development workflows, scalable REST APIs, and
+                system optimization.
+              </p>
+              <p class="text-justify">
+                I hold an MSc in Computer Science from the University of Bristol
+                (77% Distinction) and have over three years of professional
+                experience across technical mentorship and industrial
+                engineering. Before transitioning to software engineering to
+                focus on scalable backend architecture, I managed product
+                lifecycles and optimized large-scale engineering systems at
+                Bajaj Auto and Eaton.
+              </p>
+              <p class="text-justify">
+                Currently, as Teaching Support at the University of Bristol, I
+                facilitate Linux labs and mentor 160+ MSc students in Java OOP
+                and Computer Architecture. This role has sharpened my real-time
+                debugging skills and my ability to audit code efficiency,
+                including evaluating AI-generated code for Big O complexity and
+                memory footprint.
+              </p>
+            </div>
+          </div>
 
-  <!-- Add a link to let visitors send you an email easily! -->
-  <p>Email: <a href="mailto:maheshnanavare2212@gmail.com" target="_blank">maheshnanavare2212@gmail.com</a></p>
+          <div class="w-full md:w-80 shrink-0 z-10 flex flex-col gap-6">
+            <div
+              class="bg-white p-4 rounded-xl shadow-lg border-2 border-white/20 text-center"
+            >
+              <img
+                id="img-logo"
+                alt="University of Bristol Logo"
+                class="w-full max-w-[200px] h-auto object-contain mx-auto"
+              />
+            </div>
 
-</body>
+            <div
+              class="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700"
+            >
+              <div
+                class="px-2 py-2 border-b border-slate-100 dark:border-slate-700 mb-2 flex justify-between items-center"
+              >
+                <h3 class="font-bold text-slate-900 dark:text-white text-sm">
+                  Base of Operations
+                </h3>
+                <span class="text-xs font-bold text-bristol uppercase"
+                  >Bristol, UK</span
+                >
+              </div>
+              <div id="bristol-map" class="w-full h-48 rounded-lg z-0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<footer>
-  <hr>
-  <!-- Change the name to yours! -->
-  <code>Copyright (C) 2025 Mahesh Nanavare</code>
-</footer>
+    <main class="max-w-6xl mx-auto px-6 py-16 space-y-24">
+      <section id="projects" class="scroll-mt-32">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white">
+            Core Software Engineering
+          </h2>
+          <div
+            class="h-1 flex-grow bg-slate-200 dark:bg-slate-700 rounded"
+          ></div>
+        </div>
 
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mb-12">
+          <div
+            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:border-bristol/50 transition-all duration-300"
+          >
+            <div
+              class="h-48 bg-slate-100 dark:bg-slate-700 relative overflow-hidden border-b border-slate-200 dark:border-slate-700"
+            >
+              <img
+                id="img-tourAssistant"
+                alt="Multilingual Virtual Tour Assistant"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6 border-b-4 border-bristol flex flex-col flex-grow">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-bristol mb-2"
+                >Next.js & Spring Boot</span
+              >
+              <h4
+                class="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-bristol transition-colors"
+              >
+                Multilingual Virtual Tour Assistant
+              </h4>
+              <p
+                class="text-slate-600 dark:text-slate-400 mb-6 flex-grow text-sm"
+              >
+                Engineered a responsive Next.js/TypeScript app with a Spring
+                Boot microservices backend. Achieved a 20x throughput increase
+                via Kubernetes autoscaling. Managed 40+ React PRs and tracked UI
+                defects in Jira.
+              </p>
+              <a
+                id="link-tourAssistant"
+                target="_blank"
+                class="text-bristol font-bold hover:underline inline-flex items-center gap-1"
+                >View Repository</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:border-bristol/50 transition-all duration-300"
+          >
+            <div
+              class="h-48 bg-slate-100 dark:bg-slate-700 relative overflow-hidden border-b border-slate-200 dark:border-slate-700"
+            >
+              <img
+                id="img-cms"
+                alt="Customer Management System"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6 border-b-4 border-bristol flex flex-col flex-grow">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-bristol mb-2"
+                >Java & PostgreSQL</span
+              >
+              <h4
+                class="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-bristol transition-colors"
+              >
+                Customer Management System
+              </h4>
+              <p
+                class="text-slate-600 dark:text-slate-400 mb-6 flex-grow text-sm"
+              >
+                Deployed a cloud app using Spring Boot, PostgreSQL, and Docker.
+                Resolved a severe N+1 query performance issue by implementing
+                Join Fetching to consolidate database calls in the decision
+                engine.
+              </p>
+              <a
+                id="link-cms"
+                target="_blank"
+                class="text-bristol font-bold hover:underline inline-flex items-center gap-1"
+                >View Live Project</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:border-bristol/50 transition-all duration-300"
+          >
+            <div
+              class="h-48 bg-slate-100 dark:bg-slate-700 relative overflow-hidden border-b border-slate-200 dark:border-slate-700"
+            >
+              <img
+                id="img-ecommerce"
+                alt="PyShop E-Commerce Platform"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6 border-b-4 border-bristol flex flex-col flex-grow">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-bristol mb-2"
+                >Python & Django</span
+              >
+              <h4
+                class="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-bristol transition-colors"
+              >
+                PyShop E-Commerce Platform
+              </h4>
+              <p
+                class="text-slate-600 dark:text-slate-400 mb-6 flex-grow text-sm"
+              >
+                Developed a full-stack Django-based e-commerce application.
+                Built an admin panel for product management, implemented secure
+                admin authorization workflows, and utilized SQLite for reliable
+                data storage.
+              </p>
+              <a
+                id="link-ecommerce"
+                target="_blank"
+                class="text-bristol font-bold hover:underline inline-flex items-center gap-1"
+                >View Repository</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="interdisciplinary" class="scroll-mt-32">
+        <div class="flex items-center gap-4 mb-8">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white">
+            Interdisciplinary Expertise
+          </h2>
+          <div
+            class="h-1 flex-grow bg-slate-200 dark:bg-slate-700 rounded"
+          ></div>
+        </div>
+
+        <div class="space-y-4">
+          <details
+            class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm hover:border-bristol/50 transition-colors"
+          >
+            <summary
+              class="cursor-pointer p-6 font-bold text-xl flex justify-between items-center text-slate-800 dark:text-slate-200 hover:text-bristol transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-6 h-6 text-bristol"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
+                  ></path>
+                </svg>
+                Game Engines & Algorithmic Logic
+              </div>
+              <svg
+                class="w-6 h-6 text-bristol group-open:rotate-180 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </summary>
+            <div
+              class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700 mt-4"
+            >
+              <div class="grid md:grid-cols-2 gap-6 pt-6">
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-stag"
+                    alt="STAG Engine"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      STAG Engine (Java)
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Engineered a multi-player socket-server text adventure
+                      game engine. Implemented a natural language parser to
+                      handle variable user input.
+                    </p>
+                    <a
+                      id="link-stag"
+                      target="_blank"
+                      class="text-xs font-bold text-bristol hover:underline"
+                      >View Report</a
+                    >
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-chess"
+                    alt="Android Chess AI"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      Android Chess & Heuristic AI
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Programmed an automated opponent using heuristic
+                      evaluation algorithms, calculating optimal moves by
+                      assigning point values to board positions.
+                    </p>
+                    <a
+                      id="link-chess"
+                      target="_blank"
+                      class="text-xs font-bold text-bristol hover:underline"
+                      >View Project</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details
+            class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm hover:border-bristol/50 transition-colors"
+          >
+            <summary
+              class="cursor-pointer p-6 font-bold text-xl flex justify-between items-center text-slate-800 dark:text-slate-200 hover:text-bristol transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-6 h-6 text-bristol"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
+                </svg>
+                Data Science, ML & Business Intelligence
+              </div>
+              <svg
+                class="w-6 h-6 text-bristol group-open:rotate-180 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </summary>
+            <div
+              class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700 mt-4"
+            >
+              <div class="grid md:grid-cols-2 gap-6 pt-6">
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-retailMl"
+                    alt="Machine Learning Models"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      Retail Sales Prediction
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Engineered hybrid ML ensembles and Extreme Gradient
+                      Boosting regressors. Optimized model efficiency using
+                      Scikit-learn pipelines.
+                    </p>
+                    <a
+                      id="link-retailMl"
+                      target="_blank"
+                      class="text-xs font-bold text-bristol hover:underline"
+                      >View Analysis</a
+                    >
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-dashboards"
+                    alt="Power BI Dashboard"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      Interactive Dashboards
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Designed reporting solutions for manufacturing chains
+                      executing full BI workflows. Visualized critical KPIs and
+                      created NBA data storytelling reports.
+                    </p>
+                    <a
+                      id="link-dashboards"
+                      target="_blank"
+                      class="text-xs font-bold text-bristol hover:underline"
+                      >View Dashboard</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details
+            class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm hover:border-bristol/50 transition-colors"
+          >
+            <summary
+              class="cursor-pointer p-6 font-bold text-xl flex justify-between items-center text-slate-800 dark:text-slate-200 hover:text-bristol transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <svg
+                  class="w-6 h-6 text-bristol"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                Industrial Automation & Hardware Integration
+              </div>
+              <svg
+                class="w-6 h-6 text-bristol group-open:rotate-180 transition-transform duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </summary>
+            <div
+              class="p-6 pt-0 border-t border-slate-100 dark:border-slate-700 mt-4"
+            >
+              <div class="grid md:grid-cols-2 gap-6 pt-6">
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-automation"
+                    alt="Industrial BOM Optimization"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      Industrial BOM Optimization
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Engineered a Python-based diagnostic tool to automate the
+                      configuration of customized hydraulic motors. Parsed
+                      complex nomenclature to identify component commonalities,
+                      maximizing parts reuse and reducing Time to Quote.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="flex flex-col sm:flex-row gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 hover:-translate-y-1 transition-transform"
+                >
+                  <img
+                    id="img-hardware"
+                    alt="Engine Fault Identification Digitization"
+                    class="w-full sm:w-24 h-32 sm:h-24 object-cover rounded border border-slate-200 dark:border-slate-700"
+                  />
+                  <div class="flex flex-col">
+                    <h4 class="font-bold mb-1 text-slate-900 dark:text-white">
+                      Digitization of Engine Fault Identification Workflow
+                    </h4>
+                    <p
+                      class="text-xs text-slate-600 dark:text-slate-400 mb-2 flex-grow"
+                    >
+                      Acted as Product Owner bridging Industrial Engineering and
+                      IT to architect a data acquisition app. Defined relational
+                      database schemas correlating engine serial numbers with
+                      symptomatic data to reduce MTTR and enable real-time
+                      dashboards.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      id="mindset-future"
+      class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 scroll-mt-32"
+    >
+      <div class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+          <h2
+            class="text-3xl font-bold text-slate-900 dark:text-white inline-block border-b-2 border-bristol pb-2"
+          >
+            Mindset & Future Trajectory
+          </h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
+            Companies care about the value produced. I combine modern tools with
+            strict logical reasoning (GRE Quant 170/170) and clear communication
+            (IELTS 8.0/9.0) to build systems that stakeholders can trust.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <div
+            class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 border-t-4 border-t-bristol hover:-translate-y-1 transition-transform"
+          >
+            <h4
+              class="font-bold text-lg mb-2 text-slate-900 dark:text-white flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-bristol"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                ></path>
+              </svg>
+              Engineering Approach
+            </h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">
+              I embrace AI coding tools for speed, but rely on strong
+              fundamentals. I only deploy code I can fully read, audit, and
+              understand to ensure system reliability.
+            </p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              Beyond basic Python/JS testing, my future focus is comprehensive
+              QA and CI/CD pipelines.
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 border-t-4 border-t-bristol hover:-translate-y-1 transition-transform"
+          >
+            <h4
+              class="font-bold text-lg mb-2 text-slate-900 dark:text-white flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-bristol"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                ></path>
+              </svg>
+              Current Focus
+            </h4>
+            <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2">
+              <li>
+                <strong>Learning:</strong> AI Agents, autonomous workflows, and
+                payment gateway APIs.
+              </li>
+              <li>
+                <strong>Building:</strong> "Exam & Go" E-Commerce (Collaborating
+                with a UWE student) and planning Android data structures.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 border-t-4 border-t-bristol hover:-translate-y-1 transition-transform"
+          >
+            <h4
+              class="font-bold text-lg mb-2 text-slate-900 dark:text-white flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-bristol"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              Knowledge & Community
+            </h4>
+            <ul
+              class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-3"
+            >
+              <li>
+                <strong>Content:</strong> Creating a masterclass on the
+                <em>Continuous Application Flow</em> for job seekers.
+              </li>
+              <li>
+                <strong>Athletics:</strong> Kho-Kho National Silver Medalist
+                (Loughborough Univ).
+              </li>
+              <li>
+                <strong>Community:</strong> Sparks Bristol library management.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col items-center pt-8 border-t border-slate-200 dark:border-slate-800"
+        >
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            Mahesh Pralhad Nanavare
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 mb-6">
+            MSc Computer Science Graduate | University of Bristol
+          </p>
+          <a
+            href="mailto:maheshnanavare2212@gmail.com"
+            class="inline-block bg-bristol hover:bg-bristol-light text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-bristol/30 hover:-translate-y-1"
+            >Contact Me</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
